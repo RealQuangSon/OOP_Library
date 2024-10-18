@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 class Sach {
     protected:
         int id_sach;
@@ -20,6 +21,7 @@ class Sach {
         }
 };
 
+vector<Sach> thu_vien;
 class DocGia{
     protected:
         string ho_ten;
@@ -35,18 +37,39 @@ class MuonTra: protected DocGia, protected Sach{
 
 };
 
-int main(){
-    Sach* thu_vien = new Sach; 
-    int mode;
+void chonMode(int &mode){
     do{
-        cout << "Chọn chức năng:" << endl 
+        cout << "Chọn chức năng dưới đây:" << endl 
              << "1. Thêm sách" << endl
              << "2. Tìm sách" << endl
+             << "3. Thống kê sách" << endl
              << "3. Mượn sách" << endl
              << "4. Trả sách" << endl
-             << "5. Gia hạn" << endl << endl;
-        cout << "Nhập chức năng (1-5) bạn muốn thực hiện: ";
+             << "5. Gia hạn" << endl 
+             << "0. Kết thúc" << endl << endl;
+        cout << "Nhập chức năng (0-6) bạn muốn thực hiện: ";
         cin >> mode;
-    } while (mode > 5 || mode < 1);
+    } while (mode > 5 || mode < 0);
+
+    switch (mode){
+        case 1: {
+            Sach sach_them;
+            sach_them.khoiTaoSach();
+            thu_vien.push_back(sach_them);
+            break;
+        }
+        case 0:
+            break;
+    }
+        
+}
+
+int main(){
+    int mode=1;
+    while(mode){
+        chonMode(mode);
+    }
+    
+    
 
 }
