@@ -6,7 +6,7 @@ fstream book_file("@book_database.txt", ios::app); // ios::app để đổi ch�
 fstream user_file("@user_database.txt", ios::app);
 
 // Lớp sách thực hiện chức năng làm khung và các chức năng nhập in tìm sách cơ bản
-class Sach {
+class SACH {
     protected:
         string id_sach;
         string tieu_de;
@@ -53,24 +53,30 @@ class Sach {
         }
 };
 
-vector<Sach> thu_vien;
+vector<SACH> thu_vien;
 
 // Flow cho reader: đăng nhập chỉ bằng SĐT, khỏi tạo ngay khi user chạy code
-class DocGia{
+class DOCGIA{
     protected:
-        string ho_ten;
         string dia_chi;
-        string sdt;
         string ngay_muon;
         string email;
-    public:
-        // Thêm function nhập, in, ném vào database cho user (dùng form đã có sẵn như lớp Sach)
+    public: 
+        string ho_ten;
+        string sdt;
+        void timUser(string find_sdt){
+
+        }
+        
+        // Thêm function nhập, in, ném vào database cho user (dùng form đã có sẵn như lớp SACH)
 };
 
-vector<DocGia> users_db;
+vector<DOCGIA> users_db;
+DOCGIA current_user;
 
-class MuonTra: protected DocGia, protected Sach{
+class MUONTRA: protected DOCGIA, protected SACH{
     public:
+        
         void muonSach(){
 
         }
@@ -78,7 +84,16 @@ class MuonTra: protected DocGia, protected Sach{
 };
 
 
+void logIn(){
+        string find_sdt;
+        cout << "Đăng nhập (Tự động đăng kí nếu SĐT chưa tồn tại):" << endl; 
+        cout << "Nhập số điện thoại: "; cin.ignore(); getline(cin, find_sdt);cin >> find_sdt;
+        for(auto a: users_db){
+            a.timUser(find_sdt);
+        } 
 
+        
+}
 
 void chonMode(int &mode){
     do{
@@ -89,6 +104,8 @@ void chonMode(int &mode){
              << "4. Mượn sách" << endl
              << "5. Trả sách" << endl
              << "6. Gia hạn" << endl 
+             << "7. Chỉnh sửa thông tin cá nhân" << endl
+             << "8. Xem thông tin cá nhân" << endl
              << "0. Kết thúc" << endl << endl;
         cout << "Nhập chức năng (0-6) bạn muốn thực hiện: ";
         cin >> mode;
@@ -96,7 +113,7 @@ void chonMode(int &mode){
 
     switch (mode){
         case 1: {
-            Sach sach_them;
+            SACH sach_them;
             sach_them.khoiTaoSach();
             sach_them.addSachtoDB();
             thu_vien.push_back(sach_them);
@@ -134,6 +151,11 @@ void chonMode(int &mode){
 
 int main(){
     int mode=1;
+
+
+
+    cout << "Xin chào, " << current_user.ho_ten << endl
+         << "SĐT: " << current_user.sdt << endl << endl;
 
     while(mode){
         chonMode(mode);
