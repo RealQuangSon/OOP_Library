@@ -1,18 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/*
+Tasklist:
+1. lưu thông tin vào db và trích xuất in đầy đủ
+2. bugged case solve (ko cần thiét), đang giả sử constrain input là hợp lệ và bình thường
+*/
+
+
 // Đọc file database dạng txt
 fstream book_file("@book_database.txt", ios::app); // ios::app để đổi chế độ qua append mode (thêm kí tự)
 fstream user_file("@user_database.txt", ios::app);
+// Them sach vao thu vien ngay khi khoi tao
 
 // Lớp sách thực hiện chức năng làm khung và các chức năng nhập in tìm sách cơ bản
 class SACH {
     protected:
+        
+        
+    public:
         string id_sach;
         string tieu_de;
         string tac_gia;
         bool cho_muon = 1;
-    public: // mỗi function đều hoạt động word by word
+        string ngay_muon;
+        string ngay_tra;
         // Thêm một hàm tạo (cho có kiến thức) cho việc thêm sách thủ công ngay trong code ??
 
 
@@ -56,19 +68,44 @@ class SACH {
 vector<SACH> thu_vien;
 
 // Flow cho reader: đăng nhập chỉ bằng SĐT, khỏi tạo ngay khi user chạy code
-class DOCGIA{
+class DOCGIA: public SACH{
     protected:
         string dia_chi;
         string ngay_muon;
         string email;
+        vector<SACH> sach_muon;
     public: 
         string ho_ten;
         string sdt;
-        void timUser(string find_sdt){
 
+        string timUser(string find_sdt){
+            if(find_sdt == sdt){
+                return sdt;
+            }
+            else {
+                cout << "SĐT chưa tồn tại trên hệ thống, vui lòng đăng kí.\n";
+                khoiTaoUser();
+                addUserToDB(); 
+            }
         }
+
+
         
         // Thêm function nhập, in, ném vào database cho user (dùng form đã có sẵn như lớp SACH)
+        // thêm lưu user vao database
+        void khoiTaoUser(){
+            cin.ignore();
+            cout << endl << "Đăng kí tài khoản mới: " << endl;
+            cout << "Nhập chúng tôi gọi bạn là: "; getline(cin, ho_ten); 
+            cout << "Nhập địa chỉ của bạn: "; getline(cin, dia_chi); 
+            cout << "Nhập email của bạn: "; getline(cin, email);
+        }
+        void addUserToDB(){
+
+        }
+        void inUser(){
+
+        }
 };
 
 vector<DOCGIA> users_db;
@@ -76,9 +113,24 @@ DOCGIA current_user;
 
 class MUONTRA: protected DOCGIA, protected SACH{
     public:
-        
         void muonSach(){
+            string find_id;
 
+            for(auto a: thu_vien){
+                if(a.cho_muon) {
+                    a.inSach();
+                }
+            }
+
+            cout << "Nhập ID sách bạn muốn mượn: "; cin >> find_id;
+            for(auto a: thu_vien){
+                if(a.cho_muon && a.id_sach == find_id) {
+                    sach_muon.push_back(a); return;
+                }
+            }
+            
+            cout << "ID không hợp lệ, vui lòng thử lại." << endl;
+            muonSach();
         }
 
 };
@@ -90,9 +142,7 @@ void logIn(){
         cout << "Nhập số điện thoại: "; cin.ignore(); getline(cin, find_sdt);cin >> find_sdt;
         for(auto a: users_db){
             a.timUser(find_sdt);
-        } 
-
-        
+        }   
 }
 
 void chonMode(int &mode){
@@ -133,7 +183,6 @@ void chonMode(int &mode){
             cout << "Tổng hợp sách của thư viện:" << endl;
             for(auto a: thu_vien){
                 a.inSach();
-
             }
             cout << endl << endl << "Tổng số sách trong thư viện: " << thu_vien.size() << endl;
             cout << "------------------------------------" << endl;
