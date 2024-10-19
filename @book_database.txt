@@ -1,0 +1,10 @@
+
+ID: 452856
+Sách: Harry Potter
+Tác giả: J.K. Rowling
+Tình trạng: Có thể mượn
+
+ID: 241141
+Sách: Những người khốn khổ
+Tác giả: Alder Lake
+Tình trạng: Có thể mượn

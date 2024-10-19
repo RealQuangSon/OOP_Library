@@ -1,27 +1,52 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Đọc file database dạng txt
+fstream book_file("@book_database.txt", ios::app); // ios::app để đổi chế độ qua append mode (thêm kí tự)
+fstream user_file("@user_database.txt", ios::app);
+
 // Lớp sách thực hiện chức năng làm khung và các chức năng nhập in tìm sách cơ bản
 class Sach {
     protected:
-        int id_sach;
+        string id_sach;
         string tieu_de;
         string tac_gia;
         bool cho_muon = 1;
-    public:
+    public: // mỗi function đều hoạt động word by word
+        // Thêm một hàm tạo (cho có kiến thức) cho việc thêm sách thủ công ngay trong code ??
+
+
+
+
+        // 
+
         void khoiTaoSach(){
+            cout << endl << "Thông tin cho sách mới thêm vào: " << endl;
             cout << "Nhập ID của sách: "; cin >> id_sach; cin.ignore();
             cout << "Nhập tiêu đề của sách: "; getline(cin, tieu_de); 
             cout << "Nhập tác giả của sách: "; getline(cin, tac_gia); 
         }
+
         void inSach(){
             cout << endl << "ID: " << id_sach << endl;
+            id_sach.empty() ? "NULL" : id_sach;
             cout << "Sách: " << tieu_de << endl;
             cout << "Tác giả: " << tac_gia << endl;
             if(cho_muon) cout << "Tình trạng: Có thể mượn" << endl;
             else cout << "Tình trạng: Đã mượn" << endl;
         }
-        void timSach(int find_id){
+
+        void addSachtoDB(){
+            // Viết vào file y như cout bình thường
+            book_file << endl << "ID: " << id_sach << endl;
+            id_sach.empty() ? "NULL" : id_sach;
+            book_file << "Sách: " << tieu_de << endl;
+            book_file << "Tác giả: " << tac_gia << endl;
+            if(cho_muon) book_file << "Tình trạng: Có thể mượn" << endl;
+            else book_file << "Tình trạng: Đã mượn" << endl;
+        }
+        // Tìm sách qua id (user truyền từ input)
+        void timSach(string find_id){
             if(find_id == id_sach){
                 inSach();
             }
@@ -29,6 +54,8 @@ class Sach {
 };
 
 vector<Sach> thu_vien;
+
+// Flow cho reader: đăng nhập chỉ bằng SĐT, khỏi tạo ngay khi user chạy code
 class DocGia{
     protected:
         string ho_ten;
@@ -37,6 +64,7 @@ class DocGia{
         string ngay_muon;
         string email;
     public:
+        // Thêm function nhập, in, ném vào database cho user (dùng form đã có sẵn như lớp Sach)
 };
 
 vector<DocGia> users_db;
@@ -48,6 +76,8 @@ class MuonTra: protected DocGia, protected Sach{
         }
 
 };
+
+
 
 
 void chonMode(int &mode){
@@ -68,12 +98,13 @@ void chonMode(int &mode){
         case 1: {
             Sach sach_them;
             sach_them.khoiTaoSach();
+            sach_them.addSachtoDB();
             thu_vien.push_back(sach_them);
             break;
         }
 
         case 2:{
-            int find_id;
+            string find_id;
             cout << "Nhập ID sách: "; cin >> find_id;
             for(auto a: thu_vien){
                 a.timSach(find_id);
@@ -91,7 +122,9 @@ void chonMode(int &mode){
             cout << "------------------------------------" << endl;
         }
 
-        case 4:
+        case 4:{
+
+        }
 
         case 0:
             break;
