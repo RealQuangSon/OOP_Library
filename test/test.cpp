@@ -1,70 +1,21 @@
 #include <iostream>
-#include <string>
-using namespace std;
-class Nguoi {
-protected:
-    string maSo;
-   string hoTen;
-    double luong;
-    void nhapThongTin() {
-        cout << "Nhap ma so: ";
-       getline(cin, maSo);
-        cout << "Nhap ho ten: ";
-        getline(cin, hoTen);
-        cout << "Nhap luong: ";
-        cin >> luong;
-        cin.ignore();
-    }
-public:
-    Nguoi(const string& maSo, const string& hoTen, double luong)
-        : maSo(maSo), hoTen(hoTen), luong(luong) {}
-
-    void hienThiThongTin() const {
-        cout << "Ma so: " << maSo << "\nHo ten: " << hoTen << "\nLuong: " << luong << endl;
-    }
-};
-
-class Bienche : public Nguoi {
-private:
-    double heSoLuong;
-    double tienPhuCap;
-    string chucVu;
-
-public:
-    Bienche(const string& maSo, const string& hoTen, double luong, double heSoLuong, double tienPhuCap, const string& chucVu)
-        : Nguoi(maSo, hoTen, luong), heSoLuong(heSoLuong), tienPhuCap(tienPhuCap), chucVu(chucVu) {}
-
-    void hienThiThongTin() const {
-        Nguoi::hienThiThongTin();
-        cout << "He so luong: " << heSoLuong << "\nTien phu cap: " << tienPhuCap << "\nChuc vu: " << chucVu << endl;
-    }
-};
-
-class Hopdong : public Nguoi {
-private:
-    double tienCong;
-    int soNgayLamViec;
-    double heSoVuotGio;
-
-public:
-    Hopdong(const string& maSo, const string& hoTen, double luong, double tienCong, int soNgayLamViec, double heSoVuotGio)
-        : Nguoi(maSo, hoTen, luong), tienCong(tienCong), soNgayLamViec(soNgayLamViec), heSoVuotGio(heSoVuotGio) {}
-
-    void hienThiThongTin() const {
-        Nguoi::hienThiThongTin();
-        cout << "Tien cong: " << tienCong << "\nSo ngay lam viec: " << soNgayLamViec << "\nHe so vuot gio: " << heSoVuotGio << endl;
-    }
-};
+#include <ctime>
 
 int main() {
-    Bienche bc("BC001", "Hoang Thi Nghia", 5000, 2.5, 1000, "Truong phong");
-    Hopdong hd("HD001", "Ho Van Nghia", 3000, 200, 22, 1.5);
+    // Lấy thời gian hiện tại
+    std::time_t current_time = std::time(nullptr);
 
-    cout << "Thong tin Bien che:\n";
-    bc.hienThiThongTin();
+    // Chuyển thành struct tm để in ra dạng thời gian cụ thể
+    std::tm* local_time = std::localtime(&current_time);
 
-    cout << "\nThong tin Hop dong:\n";
-    hd.hienThiThongTin();
+    // In ra thời gian
+    std::cout << "Thời gian hệ thống hiện tại: "
+              << local_time->tm_hour << ":"
+              << local_time->tm_min << ":"
+              << local_time->tm_sec << " "
+              << local_time->tm_mday << "/"
+              << local_time->tm_mon + 1 << "/"
+              << local_time->tm_year + 1900 << std::endl;
 
     return 0;
 }
