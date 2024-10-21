@@ -9,8 +9,8 @@ Tasklist:
 
 
 // Đọc file database dạng txt
-fstream book_file("@book_database.txt", ios::app); // ios::app để đổi chế độ qua append mode (thêm kí tự)
-fstream user_file("@user_database.txt", ios::app);
+fstream book_file("@book_database.txt", ios::app | ios::in); // ios::app để đổi chế độ qua append mode (thêm kí tự)
+fstream user_file("@user_database.txt", ios::app | ios::in);
 // Them sach vao thu vien ngay khi khoi tao
 
 // Lớp sách thực hiện chức năng làm khung và các chức năng nhập in tìm sách cơ bản
@@ -25,12 +25,15 @@ class SACH {
         bool cho_muon = 1;
         string ngay_muon;
         string ngay_tra;
-        // Thêm một hàm tạo (cho có kiến thức) cho việc thêm sách thủ công ngay trong code ??
 
-
-
-
-        // 
+        SACH(){}
+        SACH (string x, string y, string z, string t){
+            id_sach = x;
+            tieu_de = y; 
+            tac_gia = z;
+            if(t == "Có thể mượn") cho_muon = 1;
+            else cho_muon = 0;
+        }
 
         void khoiTaoSach(){
             cout << endl << "Thông tin cho sách mới thêm vào: " << endl;
@@ -40,22 +43,20 @@ class SACH {
         }
 
         void inSach(){
-            cout << endl << "ID: " << id_sach << endl;
-            id_sach.empty() ? "NULL" : id_sach;
-            cout << "Sách: " << tieu_de << endl;
-            cout << "Tác giả: " << tac_gia << endl;
-            if(cho_muon) cout << "Tình trạng: Có thể mượn" << endl;
-            else cout << "Tình trạng: Đã mượn" << endl;
+            cout << endl << left << setw(12) << "ID: " << id_sach << endl;
+            cout << left << setw(13) << "Sách: " << tieu_de << endl;
+            cout << left << setw(15) << "Tác giả: " << tac_gia << endl;
+            if(cho_muon) cout << left << setw(12) <<"Tình trạng: Có thể mượn" << endl;
+            else cout << left << setw(12) << "Tình trạng: Đã mượn" << endl;
         }
 
         void addSachtoDB(){
             // Viết vào file y như cout bình thường
-            book_file << endl << "ID: " << id_sach << endl;
-            id_sach.empty() ? "NULL" : id_sach;
-            book_file << "Sách: " << tieu_de << endl;
-            book_file << "Tác giả: " << tac_gia << endl;
-            if(cho_muon) book_file << "Tình trạng: Có thể mượn" << endl;
-            else book_file << "Tình trạng: Đã mượn" << endl;
+            book_file << endl << left << setw(12) << "ID: " << id_sach << endl;
+            book_file << left << setw(13) << "Sách: " << tieu_de << endl;
+            book_file << left << setw(15) << "Tác giả: " << tac_gia << endl;
+            if(cho_muon) book_file << left << setw(12) <<"Tình trạng: Có thể mượn";
+            else book_file << left << setw(12) << "Tình trạng: Đã mượn";
         }
         // Tìm sách qua id (user truyền từ input)
         void timSach(string find_id){
@@ -77,19 +78,6 @@ class DOCGIA: public SACH{
     public: 
         string ho_ten;
         string sdt;
-
-        string timUser(string find_sdt){
-            if(find_sdt == sdt){
-                return sdt;
-            }
-            else {
-                cout << "SĐT chưa tồn tại trên hệ thống, vui lòng đăng kí.\n";
-                khoiTaoUser();
-                addUserToDB(); 
-            }
-        }
-
-
         
         // Thêm function nhập, in, ném vào database cho user (dùng form đã có sẵn như lớp SACH)
         // thêm lưu user vao database
@@ -100,11 +88,24 @@ class DOCGIA: public SACH{
             cout << "Nhập địa chỉ của bạn: "; getline(cin, dia_chi); 
             cout << "Nhập email của bạn: "; getline(cin, email);
         }
+
         void addUserToDB(){
 
         }
+
         void inUser(){
 
+        }
+        
+        string timUser(string find_sdt){
+            if(find_sdt == sdt){
+                return sdt;
+            }
+            else {
+                cout << "SĐT chưa tồn tại trên hệ thống, vui lòng đăng kí.\n";
+                khoiTaoUser();
+                addUserToDB(); 
+            }
         }
 };
 
@@ -167,6 +168,7 @@ void chonMode(int &mode){
             sach_them.khoiTaoSach();
             sach_them.addSachtoDB();
             thu_vien.push_back(sach_them);
+            cout << "\n Đã thành công thêm sách:"; sach_them.inSach(); 
             break;
         }
 
@@ -200,6 +202,21 @@ void chonMode(int &mode){
 
 int main(){
     int mode=1;
+    
+
+    // Đọc database ngay khi khởi tạo chương trình (CẤM SỬA GÌ ĐOẠN NÀY NỮA)
+    string read_line;
+    while (getline(book_file, read_line)) {
+        string x, y, z, t;
+
+        getline(book_file, read_line); x = read_line.substr(12);
+        getline(book_file, read_line); y = read_line.substr(13);
+        getline(book_file, read_line); z = read_line.substr(15);
+        getline(book_file, read_line); t = read_line.substr(15);
+    
+        thu_vien.push_back(SACH(x, y, z, t));
+    }
+    // ---------------------------------------------------------------------
 
 
 
