@@ -53,28 +53,3 @@ ID:         456789
 Sách:       The Hobbit
 Tác giả:    J.R.R. Tolkien
 Tình trạng: Có thể mượn
-
-ID:         123798
-Sách:       dant 
-Tác giả:    atn
-Tình trạng: Có thể mượn
-
-ID:         123232
-Sách:       dang 
-Tác giả:    tan
-Tình trạng: Có thể mượn
-
-ID:         2313
-Sách:       kdhfk k
-Tác giả:    adkfh dhf
-Tình trạng: Có thể mượn
-
-ID:         adhdkh
-Sách:       dkfh
-Tác giả:    djhkfa
-Tình trạng: Có thể mượn
-
-ID:         241141
-Sách:       dang tan
-Tác giả:    dang
-Tình trạng: Có thể mượn
