@@ -29,8 +29,7 @@ class SACH {
         string tieu_de;
         string tac_gia;
         bool cho_muon = 1;
-        string ngay_muon;
-        string ngay_tra;
+        tm ngay_muon = {}, ngay_tra = {};
 
         SACH(){}
         SACH (string x, string y, string z, string t){
@@ -82,7 +81,6 @@ vector<SACH> thu_vien;
 class DOCGIA{
     protected:
         string dia_chi;
-        string ngay_muon;
         string email;
         vector<SACH> sach_muon;
     public: 
@@ -114,12 +112,11 @@ class DOCGIA{
         }
 
         void addUserToDB(){
-            user_file << endl; 
             user_file << endl << left << setw(20) << "Họ và tên: " << ho_ten << endl;
             user_file << left << setw(20) << "SĐT: " << sdt << endl;
             user_file << left << setw(20) << "Địa chỉ: " << dia_chi << endl;
             user_file << left << setw(20) << "Email: " << email << endl;
-            user_file << "Sách đang mượn: \n";
+            user_file << "Sách đang mượn: \n" << endl;
             for(auto a: sach_muon){
                 cout << setw(7) << a.id_sach << endl;
             }
@@ -151,21 +148,43 @@ class MUONTRA: public DOCGIA, public SACH{
         void muonSach(){
             string find_id;
 
+            cout << "Sách có thể mượn là: \n";
             for(auto a: thu_vien){
                 if(a.cho_muon) {
                     a.inSach();
                 }
             }
 
-            cout << "Nhập ID sách bạn muốn mượn: "; cin >> find_id;
-            for(auto a: thu_vien){
-                if(a.cho_muon && a.id_sach == find_id) {
-                    sach_muon.push_back(a); return;
+            cout << "\nNhập ID sách bạn muốn mượn: "; cin >> find_id;
+            for(int i = 0; i<thu_vien.size();i++){
+                if(thu_vien[i].cho_muon && thu_vien[i].id_sach == find_id) {
+                    sach_muon.push_back(thu_vien[i]);
+                    thu_vien[i].cho_muon = 0;
+                    setNgayMuonTra(i); return;
                 }
             }
             
-            cout << "ID không hợp lệ, vui lòng thử lại." << endl;
+            cout << "\nID không hợp lệ, vui lòng thử lại.\n" << endl;
             muonSach();
+        }
+
+        void linkDateToSach(){
+
+        }
+
+        void setNgayMuonTra(int index_sach){
+            cout << "Chọn ngày mượn sách (Format: dd mm yy): "; cin >> thu_vien[index_sach].ngay_muon.tm_mday >> thu_vien[index_sach].ngay_muon.tm_mon >> thu_vien[index_sach].ngay_muon.tm_year;
+            cout << "Chọn ngày trả sách (Format: dd mm yy): "; cin >> thu_vien[index_sach].ngay_tra.tm_mday >> thu_vien[index_sach].ngay_tra.tm_mon >> thu_vien[index_sach].ngay_tra.tm_year;
+            
+            // xử lý time raw
+            thu_vien[index_sach].ngay_muon.tm_mon -= 1; thu_vien[index_sach].ngay_muon.tm_year -= 1900; // tháng bắt đầu từ 0, năm bắt đầu từ 1900
+            thu_vien[index_sach].ngay_tra.tm_mon -= 1; thu_vien[index_sach].ngay_tra.tm_year -= 1900;
+            
+            time_t conv_time_start = mktime(&thu_vien[index_sach].ngay_muon);
+            time_t conv_time_end = mktime(&thu_vien[index_sach].ngay_tra);
+
+            cout << "Thời gian mượn sách là: " << difftime(conv_time_start, conv_time_end)/(- 60 * 60 * 24)<< " ngày\n";
+
         }
 
 };
@@ -194,12 +213,12 @@ void chonMode(int &mode){
              << "1. Thêm sách" << endl
              << "2. Tìm sách (theo ID sách)" << endl
              << "3. Thống kê sách" << endl
-             << "4. Mượn sách" << endl
+             << "\n4. Mượn sách" << endl
              << "5. Trả sách" << endl
              << "6. Gia hạn" << endl 
-             << "7. Chỉnh sửa thông tin cá nhân" << endl
-             << "8. Xem thông tin cá nhân" << endl
-             << "0. Kết thúc" << endl << endl;
+             << "\n7. Xem thông tin cá nhân" << endl
+             << "8. Chỉnh sửa thông tin cá nhân" << endl
+             << "\n0. Kết thúc" << endl << endl;
         cout << "Nhập chức năng (0-6) bạn muốn thực hiện: ";
         cin >> mode;
     } while (mode > 6 || mode < 0);
@@ -238,6 +257,15 @@ void chonMode(int &mode){
             break;
         }
 
+        case 4: {
+            MUONTRA func1; 
+            
+            func1.muonSach();
+            
+
+            break;
+        }
+
         case 3: {
             int count_muon = 0;
             cout << "------------------------------------" << endl;
@@ -249,10 +277,12 @@ void chonMode(int &mode){
             cout << endl << endl << "Tổng số sách trong thư viện: " << thu_vien.size() << endl;
             cout << "Số sách có thể mượn: " << count_muon << endl;
             cout << "------------------------------------" << endl;
+            break;
         }
 
-        case 4:{
-
+        case 7:{
+            current_user.inUser();
+            break; 
         }
 
         case 0:
@@ -314,6 +344,11 @@ int main(){
         chonMode(mode);
     }
     
+    // update database
+    ofstream file("@book_database.txt", ios::trunc);
+    for(auto a:thu_vien){
+        a.addSachtoDB();
+    }
     
-
+    return 0;
 }

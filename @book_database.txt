@@ -47,7 +47,7 @@ Tình trạng: Có thể mượn
 ID:         678901
 Sách:       Pride and Prejudice
 Tác giả:    Jane Austen
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
 
 ID:         456789
 Sách:       The Hobbit
@@ -62,19 +62,4 @@ Tình trạng: Có thể mượn
 ID:         123232
 Sách:       dang 
 Tác giả:    tan
-Tình trạng: Có thể mượn
-
-ID:         2313
-Sách:       kdhfk k
-Tác giả:    adkfh dhf
-Tình trạng: Có thể mượn
-
-ID:         adhdkh
-Sách:       dkfh
-Tác giả:    djhkfa
-Tình trạng: Có thể mượn
-
-ID:         241141
-Sách:       dang tan
-Tác giả:    dang
 Tình trạng: Có thể mượn
