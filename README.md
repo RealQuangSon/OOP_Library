@@ -15,4 +15,9 @@ Với những yêu cầu như trên nhóm B hoàn thành được các chức n�
 ## User flow
 Để tiện cho quá trình đánh giá báo cáo và sử dụng, nhóm B xin phép được trình bày flow của hệ thống:
 - Đăng nhập:
--   Người dùng chạy hệ thống và sẽ phải đăng nhập luôn để sử dụng dịch vụ 
+-   Người dùng chạy hệ thống và sẽ phải đăng nhập luôn để sử dụng dịch vụ
+
+## Constrain (các ép buộc hệ thống)
+Việc có các constrain trong 1 hệ thống sẽ khiến cho việc test trơn tru hơn cũng như để theo dõi được những tồn đọng để từ đó có thể cải thiện trong các phiên bản tiếp theo (nếu cần)
+- Date mượn/trả sách không thể ở trước ngày hiện tại (time_now)
+- Format database bắt buộc phải theo nguyên tắc (mỗi object cách nhau bởi 1 dòng trống, mở đầu và kết thúc file database là 1 dòng trống
