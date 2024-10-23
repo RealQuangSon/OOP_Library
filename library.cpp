@@ -19,6 +19,10 @@ fstream book_file("@book_database.txt", ios::app); // ios::app để đổi ch�
 fstream user_file("@user_database.txt", ios::app); // ios::in để đọc file txt
 // Them sach vao thu vien ngay khi khoi tao
 
+// get system date
+time_t current_time = time(0);
+tm* time_now = localtime(&current_time);  
+
 // Lớp sách thực hiện chức năng làm khung và các chức năng nhập in tìm sách cơ bản
 class SACH {
     protected:
@@ -86,7 +90,7 @@ class DOCGIA{
     public: 
         string ho_ten;
         string sdt;
-
+        
         DOCGIA(){}
         DOCGIA (string x, string y, string z, string t, vector<string> g){
             ho_ten = x;
@@ -112,21 +116,21 @@ class DOCGIA{
         }
 
         void addUserToDB(){
-            user_file << endl << left << setw(20) << "Họ và tên: " << ho_ten << endl;
-            user_file << left << setw(20) << "SĐT: " << sdt << endl;
-            user_file << left << setw(20) << "Địa chỉ: " << dia_chi << endl;
-            user_file << left << setw(20) << "Email: " << email << endl;
-            user_file << "Sách đang mượn: \n" << endl;
+            user_file << endl << left << setw(15) << "Họ và tên: " << ho_ten << endl;
+            user_file << left << setw(12) << "SĐT: " << sdt << endl;
+            user_file << left << setw(16) << "Địa chỉ: " << dia_chi << endl;
+            user_file << left << setw(11) << "Email: " << email << endl;
+            user_file << "Sách đang mượn: " << endl;
             for(auto a: sach_muon){
-                cout << setw(7) << a.id_sach << endl;
+                user_file << right << setw(7) << "ID: " << a.id_sach << endl;
             }
         }
 
         void inUser(){
-            cout << endl << left << setw(20) << "Họ và tên: " << ho_ten << endl;
-            cout << left << setw(20) << "SĐT: " << sdt << endl;
-            cout << left << setw(20) << "Địa chỉ: " << dia_chi << endl;
-            cout << left << setw(20) << "Email: " << email << endl;
+            cout << endl << left << setw(15) << "Họ và tên: " << ho_ten << endl;
+            cout << left << setw(12) << "SĐT: " << sdt << endl;
+            cout << left << setw(16) << "Địa chỉ: " << dia_chi << endl;
+            cout << left << setw(11) << "Email: " << email << endl;
             cout << "Sách đang mượn: \n";
             for(auto a: sach_muon){
                 a.inSach();
@@ -137,6 +141,17 @@ class DOCGIA{
             if(find_sdt == sdt){
                 return sdt;
             } else return "none";
+        }
+
+        void addSach(SACH sach){
+            sach_muon.push_back(sach);
+        }
+        void removeSach(string find_id){
+            for(auto a:sach_muon){
+                if (find_id == a.id_sach){
+                    sach_muon.erase(a);
+                }
+            }
         }
 };
 
@@ -158,7 +173,7 @@ class MUONTRA: public DOCGIA, public SACH{
             cout << "\nNhập ID sách bạn muốn mượn: "; cin >> find_id;
             for(int i = 0; i<thu_vien.size();i++){
                 if(thu_vien[i].cho_muon && thu_vien[i].id_sach == find_id) {
-                    sach_muon.push_back(thu_vien[i]);
+                    current_user.addSach(thu_vien[i]);
                     thu_vien[i].cho_muon = 0;
                     setNgayMuonTra(i); return;
                 }
@@ -166,10 +181,6 @@ class MUONTRA: public DOCGIA, public SACH{
             
             cout << "\nID không hợp lệ, vui lòng thử lại.\n" << endl;
             muonSach();
-        }
-
-        void linkDateToSach(){
-
         }
 
         void setNgayMuonTra(int index_sach){
@@ -209,7 +220,8 @@ void logIn(){
 // Func chọn mode 
 void chonMode(int &mode){
     do{
-        cout << endl << "Chọn chức năng dưới đây:" << endl << endl
+        cout << endl << "--------------------------------------------\n"
+             << "Chọn chức năng dưới đây:" << endl << endl
              << "1. Thêm sách" << endl
              << "2. Tìm sách (theo ID sách)" << endl
              << "3. Thống kê sách" << endl
@@ -221,7 +233,7 @@ void chonMode(int &mode){
              << "\n0. Kết thúc" << endl << endl;
         cout << "Nhập chức năng (0-6) bạn muốn thực hiện: ";
         cin >> mode;
-    } while (mode > 6 || mode < 0);
+    } while (mode > 8 || mode < 0);
 
     // Chỉnh hành vi của mode ở đây
     switch (mode){
@@ -257,15 +269,6 @@ void chonMode(int &mode){
             break;
         }
 
-        case 4: {
-            MUONTRA func1; 
-            
-            func1.muonSach();
-            
-
-            break;
-        }
-
         case 3: {
             int count_muon = 0;
             cout << "------------------------------------" << endl;
@@ -279,23 +282,46 @@ void chonMode(int &mode){
             cout << "------------------------------------" << endl;
             break;
         }
+        
+        case 4: {
+            MUONTRA func1; 
+            func1.muonSach();
+            break;
+        }
+
+        case 5:{
+            cout << "Nhập ID sách bạn muốn trả: \n";
+            
+            break;
+        }
+
+        case 6:{
+            for(auto a: users_db){
+                a.inUser();
+            }
+            cout << "Nhập ID sách bạn muốn gia hạn: \n";
+
+            break;
+        }
 
         case 7:{
-            current_user.inUser();
+            current_user.inUser();                
             break; 
         }
 
-        case 0:
-            break;
-    }
-        
+        case 8:{
+            current_user.khoiTaoUser();
+        }
+
+        case 0: break;
+    }  
 }
 
 int main(){
     int mode=1;
-    
 
     // Đọc database ngay khi khởi tạo chương trình (CODE CHẠY RỒI, CẤM SỬA GÌ ĐOẠN NÀY NỮA)
+    // Đọc book database
     fstream book_db_read("@book_database.txt", ios::in);
     string read_line;
     try{
@@ -312,20 +338,19 @@ int main(){
         throw runtime_error("Có lỗi xảy ra"); // đúng ra là cái này sẽ không chạy dù bất cứ giá nào
     }
     catch(const exception& e){}
-
+    // Đọc user database
     fstream user_db_read("@user_database.txt", ios::in);
     try{
         while (getline(user_db_read, read_line)) {
             string x, y, z, t;
             vector<string> g;
-            // Bản chất của gõ tiếng việt telex là các kí tự gộp nhau -.- nên phải cắt cả kí tự gộp của nó
-            getline(user_db_read, read_line); x = read_line.substr(12);
-            getline(user_db_read, read_line); y = read_line.substr(13);
-            getline(user_db_read, read_line); z = read_line.substr(15);
-            getline(user_db_read, read_line); t = read_line.substr(15);
+            getline(user_db_read, read_line); x = read_line.substr(15);
+            getline(user_db_read, read_line); y = read_line.substr(12);
+            getline(user_db_read, read_line); z = read_line.substr(16);
+            getline(user_db_read, read_line); t = read_line.substr(11);
             getline(user_db_read, read_line);
             while(read_line != ""){
-                getline(user_db_read, read_line); g.push_back(read_line);
+                getline(user_db_read, read_line); g.push_back(read_line.substr(7));
             }
         
             users_db.push_back(DOCGIA(x, y, z, t, g));
@@ -338,16 +363,27 @@ int main(){
 
     logIn();
     cout << "\nXin chào, " << current_user.ho_ten << endl
-         << "SĐT: " << current_user.sdt << endl << endl;
+         << "SĐT: " << current_user.sdt << endl
+         << "Thời gian hiện tại: " << time_now->tm_mday << "/" << time_now->tm_mon + 1 << "/" << time_now->tm_year + 1900 << endl << endl;
 
     while(mode){
         chonMode(mode);
     }
     
-    // update database
-    ofstream file("@book_database.txt", ios::trunc);
+    // update databases
+    ofstream file1("@book_database.txt", ios::trunc);
     for(auto a:thu_vien){
         a.addSachtoDB();
+    }
+
+    for(auto &a: users_db){
+        if(current_user.sdt == a.timUser(current_user.sdt)){
+            a = current_user;
+        }
+    }  
+    ofstream file2("@user_database.txt", ios::trunc);
+    for(auto a:users_db){
+        a.addUserToDB();
     }
     
     return 0;

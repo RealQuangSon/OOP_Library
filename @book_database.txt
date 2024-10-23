@@ -32,17 +32,17 @@ Tình trạng: Có thể mượn
 ID:         567890
 Sách:       Moby Dick
 Tác giả:    Herman Melville
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
 
 ID:         234567
 Sách:       War and Peace
 Tác giả:    Leo Tolstoy
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
 
 ID:         890123
 Sách:       Crime and Punishment
 Tác giả:    Fyodor Dostoevsky
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
 
 ID:         678901
 Sách:       Pride and Prejudice
@@ -52,14 +52,19 @@ Tình trạng: Đã mượn
 ID:         456789
 Sách:       The Hobbit
 Tác giả:    J.R.R. Tolkien
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
 
 ID:         123798
 Sách:       dant 
 Tác giả:    atn
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
 
 ID:         123232
 Sách:       dang 
 Tác giả:    tan
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
+
+ID:         123654
+Sách:       a
+Tác giả:    a
+Tình trạng: Đã mượn

@@ -1,6 +1,11 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <ctime>
 using namespace std;
 
 int main() {
-    ofstream file("example.txt", ios::trunc);
+    time_t current_time = time(0);
+tm* time_now = localtime(&current_time); 
+cout<<&time_now;
+
+    return 0;
 }

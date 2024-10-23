@@ -1,56 +1,7 @@
 
-Họ và tên:      le tan
-SĐT:               0813510482
-Địa chỉ:       255 hht
-Email:              meial@gmail.com
+Họ và tên: Dang Tan
+SĐT:       0813510482
+Địa chỉ:   255 hht
+Email:     tan@gmail.com
 Sách đang mượn: 
-
-
-Họ và tên:      ng oha
-SĐT:               0123
-Địa chỉ:       ha
-Email:              ngoc
-Sách đang mượn: 
-
-
-Họ và tên:      nguyet nga
-SĐT:               0916188262
-Địa chỉ:       255 hht
-Email:              nguyenga@gmail.com
-Sách đang mượn: 
-
-
-Họ và tên:      fjal
-SĐT:               0916188262
-Địa chỉ:       d
-Email:              d
-Sách đang mượn: 
-
-
-Họ và tên:      1
-SĐT:               121212
-Địa chỉ:       1
-Email:              1
-Sách đang mượn: 
-
-
-Họ và tên:      a
-SĐT:               0123456
-Địa chỉ:       a
-Email:              a
-Sách đang mượn: 
-
-
-Họ và tên:      a
-SĐT:               0123456
-Địa chỉ:       a
-Email:              a
-Sách đang mượn: 
-
-
-Họ và tên:      a
-SĐT:               013654
-Địa chỉ:       a
-Email:              a
-Sách đang mượn: 
-
+ID:    567890
