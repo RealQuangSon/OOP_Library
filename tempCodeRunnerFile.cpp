@@ -1,1 +1,0 @@
-cout<< "hehe"<<read_line<<endl;
