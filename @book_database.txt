@@ -12,7 +12,9 @@ Tình trạng: Có thể mượn
 ID:         123456
 Sách:       The Great Gatsby
 Tác giả:    F. Scott Fitzgerald
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 15/1/2023
 
 ID:         789012
 Sách:       To Kill a Mockingbird
@@ -48,6 +50,8 @@ ID:         678901
 Sách:       Pride and Prejudice
 Tác giả:    Jane Austen
 Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 20/2/2023
 
 ID:         456789
 Sách:       The Hobbit
@@ -57,9 +61,20 @@ Tình trạng: Có thể mượn
 ID:         123798
 Sách:       dant 
 Tác giả:    atn
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 25/3/2023
 
 ID:         123232
 Sách:       dang 
 Tác giả:    tan
-Tình trạng: Có thể mượn
+Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 30/4/2023
+
+ID:         123654
+Sách:       a
+Tác giả:    a
+Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 4/6/2023
