@@ -35,11 +35,11 @@ class SACH {
 
         SACH(){}
         SACH (string x, string y, string z, string t){
-            id_sach = x;
-            tieu_de = y; 
-            tac_gia = z;
-            if(t == "Có thể mượn") cho_muon = 1;
-            else cho_muon = 0;
+            this->id_sach = x;
+            this->tieu_de = y; 
+            this->tac_gia = z;
+            if(t == "Có thể mượn") this->cho_muon = 1;
+            else this->cho_muon = 0;
         }
 
         void khoiTaoSach(){
@@ -173,7 +173,7 @@ class MUONTRA: public DOCGIA, public SACH {
         void muonSach() {
             string find_id;
 
-            cout << "Sách có thể mượn là: \n";
+            cout << "\nSách có thể mượn là: \n";
             for (auto a : thu_vien) {
                 if (a->cho_muon) {
                     a->inSach();
@@ -200,16 +200,17 @@ class MUONTRA: public DOCGIA, public SACH {
             cout << "Chọn ngày hẹn trả sách (Format: dd mm yy): "; 
             cin >> sach->ngay_tra.tm_mday >> sach->ngay_tra.tm_mon >> sach->ngay_tra.tm_year;
 
-            // xử lý time raw
+            // xử lý time raw 
+            // tháng bắt đầu từ 0, năm bắt đầu từ 1900
             sach->ngay_muon.tm_mon -= 1; 
-            sach->ngay_muon.tm_year -= 1900; // tháng bắt đầu từ 0, năm bắt đầu từ 1900
+            sach->ngay_muon.tm_year -= 1900; 
             sach->ngay_tra.tm_mon -= 1; 
             sach->ngay_tra.tm_year -= 1900;
 
             time_t conv_time_start = mktime(&sach->ngay_muon);
             time_t conv_time_end = mktime(&sach->ngay_tra);
 
-            if (current_time - conv_time_start < 0 || conv_time_end - conv_time_start < 0) {
+            if (current_time > conv_time_start || conv_time_end - conv_time_start < 0) {
                 cout << "Ngày mượn hoặc ngày trả không hợp lệ, vui lòng thử lại.\n";
                 setNgayMuonTra(sach);
             }
@@ -256,29 +257,28 @@ void chonMode(int &mode){
     switch (mode){
         case 1: {
             SACH* sach_them = new SACH();
-            bool valid_book = 1;
-            sach_them->khoiTaoSach();
-
-            //check neu trung id
-            for(auto a: thu_vien){
-                if(a->id_sach == sach_them->id_sach) {
-                    cout << "\nID sách đã tồn tại.\n";
-                    valid_book = 0;
+            bool no_valid = 1;
+            
+            // Check if the ID already exists
+            while (no_valid) {
+                sach_them->khoiTaoSach();
+                no_valid = 0;
+                for (auto a : thu_vien) {
+                    if (a->id_sach == sach_them->id_sach) {
+                        cout << "\nID sách đã tồn tại. Vui lòng nhập lại.\n";
+                        no_valid = 1;
+                        break;
+                    }
+                }
+                if (!no_valid) {
+                    thu_vien.push_back(sach_them);
+                    sach_them->addSachtoDB();
                 }
             }
-
-            if(valid_book){
-                sach_them->addSachtoDB();
-                thu_vien.push_back(sach_them);
-                cout << "\n- Đã thành công thêm sách:"; sach_them->inSach(); 
-                break;
-            } else {
-                delete sach_them;
-                break;
-            }
+            break;
         }
 
-        case 2:{
+        case 2: {
             string find_id;
             cout << "Nhập ID sách: "; cin >> find_id;
             for(auto a: thu_vien){
@@ -291,19 +291,21 @@ void chonMode(int &mode){
 
         case 3: {
             int count_muon = 0;
-            int money = 0;
+            int vault = 0;
             cout << "------------------------------------" << endl;
             cout << "Tổng hợp sách của thư viện:" << endl;
             for(auto a: thu_vien){
                 a->inSach();
                 if(a->cho_muon) count_muon++; 
                 if(current_time > mktime(&a->ngay_tra) && !a->cho_muon){
-                    money += 20000;
+                    int money = 5000;
+                    int gap = difftime(current_time, mktime(&a->ngay_tra))/(60 * 60 * 24);
+                    vault += money*gap;
                 }
             }
             cout << endl << endl << "Tổng số sách trong thư viện: " << thu_vien.size() << endl;
             cout << "Số sách có thể mượn: " << count_muon << endl;
-            cout << "Tổng số tiền phạt: " << money << "VND" << endl;
+            cout << "Tổng số tiền phạt: " << vault << " VND" << endl;
             cout << "------------------------------------" << endl;
             break;
         }
@@ -323,7 +325,7 @@ void chonMode(int &mode){
             for(auto& a: thu_vien){
                 if(find_id == a->timSach(find_id)){
                     if (current_time > mktime(&a->ngay_tra)){
-                        int money = 20000;
+                        int money = 5000;
                         int gap = difftime(current_time, mktime(&a->ngay_tra))/(- 60 * 60 * 24);
                         cout << "Sách đã quá hạn, tiền phạt quá hạn" << money*gap << "VND\n";
                     }
@@ -339,16 +341,18 @@ void chonMode(int &mode){
         case 6:{
             int more_day;
             string find_id;
-            for(auto a: users_db){
-                a.inUser();
+            cout << "Sách bạn đang mượn: \n\n";
+            for(auto a: current_user.sach_muon){
+                a->inSach();
             }
-            cout << "Nhập ID sách bạn muốn gia hạn: "; cin.ignore(); getline(cin, find_id);
+            cout << "\nNhập ID sách bạn muốn gia hạn: "; cin.ignore(); getline(cin, find_id);
             cout << "Nhập số ngày muốn gia hạn: "; cin >> more_day;
             for(auto& a: thu_vien){
                 if(find_id == a->timSach(find_id)){
                     a->ngay_tra.tm_mday += more_day;
                     mktime(&a->ngay_tra);
-                    cout << "Đã gia hạn thành công sách: ";
+                    cout << "\nĐã gia hạn thành công sách: ";
+                    a->inSach();
                 }
             }
             break;
@@ -370,22 +374,22 @@ void chonMode(int &mode){
 
 int main(){
     int mode=1;
-/*
+
     // Đọc database ngay khi khởi tạo chương trình (CODE CHẠY RỒI, CẤM SỬA GÌ ĐOẠN NÀY NỮA)
     // Đọc book database
     fstream book_db_read("@book_database.txt", ios::in);
     string read_line; 
-    // try {
+    try {
         while (getline(book_db_read, read_line)) {
             string x, y, z, t;
             tm ngay_muon = {}, ngay_tra = {};
-            bool cho_muon = true;
-    
+            bool cho_muon = true;       
+            // Read the book details
             getline(book_db_read, read_line); x = read_line.substr(12);
             getline(book_db_read, read_line); y = read_line.substr(13);
             getline(book_db_read, read_line); z = read_line.substr(15);
-            getline(book_db_read, read_line); t = read_line.substr(12);
-    
+            getline(book_db_read, read_line); t = read_line.substr(15);
+
             if (t == "Có thể mượn") {
                 cho_muon = true;
             } else {
@@ -394,48 +398,53 @@ int main(){
                 sscanf(read_line.c_str(), "Ngày mượn: %d/%d/%d", &ngay_muon.tm_mday, &ngay_muon.tm_mon, &ngay_muon.tm_year);
                 ngay_muon.tm_mon -= 1; // Adjust month
                 ngay_muon.tm_year -= 1900; // Adjust year
-    
+
                 getline(book_db_read, read_line); // Ngày trả
                 sscanf(read_line.c_str(), "Ngày trả: %d/%d/%d", &ngay_tra.tm_mday, &ngay_tra.tm_mon, &ngay_tra.tm_year);
                 ngay_tra.tm_mon -= 1; // Adjust month
                 ngay_tra.tm_year -= 1900; // Adjust year
             }
-    
+
             SACH* sach = new SACH(x, y, z, t);
-            sach->ngay_muon = ngay_muon;
             sach->ngay_tra = ngay_tra;
             sach->cho_muon = cho_muon;
             thu_vien.push_back(sach);
-        }
-    //     throw runtime_error("Có lỗi xảy ra"); // đúng ra là cái này sẽ không chạy dù bất cứ giá nào
-    // }
-    // catch(const exception& e) {}
-    // Đọc user database
-    fstream user_db_read("@user_database.txt", ios::in);
-    try{
-        while (getline(user_db_read, read_line)) {
-            string x, y, z, t;
-            vector<string> g;
-            cout << read_line << endl;
-            getline(user_db_read, read_line); x = read_line.substr(15);
-            getline(user_db_read, read_line); y = read_line.substr(12);
-            getline(user_db_read, read_line); z = read_line.substr(16);
-            getline(user_db_read, read_line); t = read_line.substr(11);
-            getline(user_db_read, read_line);
-            while(read_line != ""){
-                getline(user_db_read, read_line);
-                if(read_line[0] == '-'){
-                    g.push_back(read_line.substr(8));
-                }
-            }
-        
-            users_db.push_back(DOCGIA(x, y, z, t, g));
+            
         }
         throw runtime_error("Có lỗi xảy ra"); // đúng ra là cái này sẽ không chạy dù bất cứ giá nào
     }
-    catch(const exception& e){}
+    catch(const exception& e) {}
+    // Đọc user database
+    fstream user_db_read("@user_database.txt", ios::in);
+    // try{
+        getline(user_db_read, read_line);
+        while (getline(user_db_read, read_line)) {
+            string x, y, z, t;
+            vector<string> g;
+
+            x = read_line.substr(15);
+            getline(user_db_read, read_line); y = read_line.substr(12);
+            getline(user_db_read, read_line); z = read_line.substr(16);
+            getline(user_db_read, read_line); t = read_line.substr(11);
+
+            getline(user_db_read, read_line); 
+
+            if (read_line == "Sách đang mượn: ") {
+                getline(user_db_read, read_line);
+                while (read_line[0] == '-') {
+                    g.push_back(read_line.substr(8));
+                    cout<< read_line.substr(8) <<endl;
+                    getline(user_db_read, read_line);
+                }
+            }
+
+            users_db.push_back(DOCGIA(x, y, z, t, g));
+        }
+    //     throw runtime_error("Có lỗi xảy ra"); // đúng ra là cái này sẽ không chạy dù bất cứ giá nào
+    // }
+    // catch(const exception& e){}
     // ---------------------------------------------------------------------
-*/
+
 
     logIn();
     cout << "\nXin chào, " << current_user.ho_ten << endl
