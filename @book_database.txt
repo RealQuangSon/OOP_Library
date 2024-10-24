@@ -1,80 +1,106 @@
 
-ID:         452856
-Sách:       Harry Potter
-Tác giả:    J.K. Rowling
-Tình trạng: Có thể mượn
-
-ID:         241141
-Sách:       Những người khốn khổ
-Tác giả:    Alder Lake
-Tình trạng: Có thể mượn
-
-ID:         123456
-Sách:       The Great Gatsby
-Tác giả:    F. Scott Fitzgerald
-Tình trạng: Đã mượn
-Ngày mượn: 0/1/1900
-Ngày trả: 15/1/2023
-
-ID:         789012
-Sách:       To Kill a Mockingbird
-Tác giả:    Harper Lee
-Tình trạng: Có thể mượn
-
-ID:         345678
-Sách:       1984
-Tác giả:    George Orwell
-Tình trạng: Có thể mượn
-
-ID:         901234
-Sách:       The Catcher in the Rye
-Tác giả:    J.D. Salinger
-Tình trạng: Có thể mượn
-
-ID:         567890
-Sách:       Moby Dick
-Tác giả:    Herman Melville
-Tình trạng: Có thể mượn
-
-ID:         234567
-Sách:       War and Peace
-Tác giả:    Leo Tolstoy
-Tình trạng: Có thể mượn
-
-ID:         890123
-Sách:       Crime and Punishment
-Tác giả:    Fyodor Dostoevsky
-Tình trạng: Có thể mượn
-
-ID:         678901
-Sách:       Pride and Prejudice
-Tác giả:    Jane Austen
-Tình trạng: Đã mượn
-Ngày mượn: 0/1/1900
-Ngày trả: 20/2/2023
-
-ID:         456789
+ID:         452857
 Sách:       The Hobbit
 Tác giả:    J.R.R. Tolkien
 Tình trạng: Có thể mượn
 
-ID:         123798
-Sách:       dant 
-Tác giả:    atn
-Tình trạng: Đã mượn
-Ngày mượn: 0/1/1900
-Ngày trả: 25/3/2023
+ID:         452858
+Sách:       The Great Gatsby
+Tác giả:    F. Scott Fitzgerald
+Tình trạng: Có thể mượn
 
-ID:         123232
-Sách:       dang 
-Tác giả:    tan
-Tình trạng: Đã mượn
-Ngày mượn: 0/1/1900
-Ngày trả: 30/4/2023
+ID:         452859
+Sách:       To Kill a Mockingbird
+Tác giả:    Harper Lee
+Tình trạng: Có thể mượn
 
-ID:         123654
-Sách:       a
-Tác giả:    a
+ID:         452860
+Sách:       1984
+Tác giả:    George Orwell
+Tình trạng: Có thể mượn
+
+ID:         452861
+Sách:       Pride and Prejudice
+Tác giả:    Jane Austen
+Tình trạng: Có thể mượn
+
+ID:         452862
+Sách:       Moby Dick
+Tác giả:    Herman Melville
+Tình trạng: Có thể mượn
+
+ID:         452863
+Sách:       War and Peace
+Tác giả:    Leo Tolstoy
+Tình trạng: Có thể mượn
+
+ID:         452864
+Sách:       The Catcher in the Rye
+Tác giả:    J.D. Salinger
+Tình trạng: Có thể mượn
+
+ID:         452865
+Sách:       The Alchemist
+Tác giả:    Paulo Coelho
+Tình trạng: Có thể mượn
+
+ID:         452866
+Sách:       The Odyssey
+Tác giả:    Homer
+Tình trạng: Có thể mượn
+
+ID:         452867
+Sách:       Brave New World
+Tác giả:    Aldous Huxley
+Tình trạng: Có thể mượn
+
+ID:         452868
+Sách:       Crime and Punishment
+Tác giả:    Fyodor Dostoevsky
+Tình trạng: Có thể mượn
+
+ID:         452869
+Sách:       The Divine Comedy
+Tác giả:    Dante Alighieri
+Tình trạng: Có thể mượn
+
+ID:         452870
+Sách:       Les Misérables
+Tác giả:    Victor Hugo
 Tình trạng: Đã mượn
 Ngày mượn: 0/1/1900
-Ngày trả: 4/6/2023
+Ngày trả: 1/4/2026
+
+ID:         452871
+Sách:       Don Quixote
+Tác giả:    Miguel de Cervantes
+Tình trạng: Có thể mượn
+
+ID:         452872
+Sách:       Ulysses
+Tác giả:    James Joyce
+Tình trạng: Có thể mượn
+
+ID:         452873
+Sách:       The Brothers Karamazov
+Tác giả:    Fyodor Dostoevsky
+Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 1/1/2025
+
+ID:         452874
+Sách:       Anna Karenina
+Tác giả:    Leo Tolstoy
+Tình trạng: Có thể mượn
+
+ID:         452875
+Sách:       Wuthering Heights
+Tác giả:    Emily Brontë
+Tình trạng: Có thể mượn
+
+ID:         452876
+Sách:       Frankenstein
+Tác giả:    Mary Shelley
+Tình trạng: Đã mượn
+Ngày mượn: 0/1/1900
+Ngày trả: 15/11/2024

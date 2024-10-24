@@ -1,18 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
-Tasklist:
-1. lưu thông tin vào db và trích xuất in đầy đủ
-2. bugged case solve (ko cần thiét), đang giả sử constrain input là hợp lệ và bình thường
-*/
-
-/*
-Constrain:
-1. khong the sync tui do cua user voi sach trong database (neu xoa thu cong txt thi chiu)
-*/
-
-
 // Đọc file database dạng txt
 fstream book_file("@book_database.txt", ios::app); // ios::app để đổi chế độ qua append mode (thêm kí tự)
 fstream user_file("@user_database.txt", ios::app); // ios::in để đọc file txt
@@ -118,7 +106,7 @@ class DOCGIA{
         // thêm lưu user vao database
         void khoiTaoUser(){
             cout << endl << "Đăng kí tài khoản mới: " << endl;
-            cout << "Nhập chúng tôi gọi bạn là: ";cin.ignore(); getline(cin, ho_ten); 
+            cout << "Chúng tôi gọi bạn là: ";cin.ignore(); getline(cin, ho_ten); 
             cout << "Nhập địa chỉ của bạn: "; getline(cin, dia_chi); 
             cout << "Nhập email của bạn: "; getline(cin, email);
         }
@@ -321,7 +309,7 @@ void chonMode(int &mode){
             for(auto a: current_user.sach_muon){
                 a->inSach();
             }
-            cout << "Nhập ID sách bạn muốn trả: "; cin.ignore(); getline(cin, find_id);
+            cout << "\nNhập ID sách bạn muốn trả: "; cin.ignore(); getline(cin, find_id);
             for(auto& a: thu_vien){
                 if(find_id == a->timSach(find_id)){
                     if (current_time > mktime(&a->ngay_tra)){
@@ -330,8 +318,7 @@ void chonMode(int &mode){
                         cout << "Sách đã quá hạn, tiền phạt quá hạn" << money*gap << "VND\n";
                     }
                     a->cho_muon = 1;
-                    cout << "Đã trả sách thành công: ";
-                    a->inSach();
+                    cout << "\nĐã trả sách thành công!";
                     current_user.removeSach(find_id);
                 }
             }
@@ -341,7 +328,7 @@ void chonMode(int &mode){
         case 6:{
             int more_day;
             string find_id;
-            cout << "Sách bạn đang mượn: \n\n";
+            cout << "\nSách bạn đang mượn: \n";
             for(auto a: current_user.sach_muon){
                 a->inSach();
             }
