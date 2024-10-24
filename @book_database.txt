@@ -1,70 +1,19 @@
 
-ID:         452856
-Sách:       Harry Potter
-Tác giả:    J.K. Rowling
+ID:         456
+Sách:       he
+Tác giả:    he he
 Tình trạng: Có thể mượn
 
-ID:         241141
-Sách:       Những người khốn khổ
-Tác giả:    Alder Lake
-Tình trạng: Có thể mượn
-
-ID:         123456
-Sách:       The Great Gatsby
-Tác giả:    F. Scott Fitzgerald
-Tình trạng: Có thể mượn
-
-ID:         789012
-Sách:       To Kill a Mockingbird
-Tác giả:    Harper Lee
-Tình trạng: Có thể mượn
-
-ID:         345678
-Sách:       1984
-Tác giả:    George Orwell
-Tình trạng: Có thể mượn
-
-ID:         901234
-Sách:       The Catcher in the Rye
-Tác giả:    J.D. Salinger
-Tình trạng: Có thể mượn
-
-ID:         567890
-Sách:       Moby Dick
-Tác giả:    Herman Melville
+ID:         222
+Sách:        hehe 
+Tác giả:    hehe
 Tình trạng: Đã mượn
+Ngày mượn: 1/1/2024
+Ngày trả: 8/7/2025
 
-ID:         234567
-Sách:       War and Peace
-Tác giả:    Leo Tolstoy
+ID:         234
+Sách:       djf
+Tác giả:    dd
 Tình trạng: Đã mượn
-
-ID:         890123
-Sách:       Crime and Punishment
-Tác giả:    Fyodor Dostoevsky
-Tình trạng: Đã mượn
-
-ID:         678901
-Sách:       Pride and Prejudice
-Tác giả:    Jane Austen
-Tình trạng: Đã mượn
-
-ID:         456789
-Sách:       The Hobbit
-Tác giả:    J.R.R. Tolkien
-Tình trạng: Đã mượn
-
-ID:         123798
-Sách:       dant 
-Tác giả:    atn
-Tình trạng: Đã mượn
-
-ID:         123232
-Sách:       dang 
-Tác giả:    tan
-Tình trạng: Đã mượn
-
-ID:         123654
-Sách:       a
-Tác giả:    a
-Tình trạng: Đã mượn
+Ngày mượn: 9/9/2024
+Ngày trả: 1/4/2025

@@ -1,7 +1,8 @@
 
-Họ và tên: Dang Tan
-SĐT:       0813510482
-Địa chỉ:   255 hht
-Email:     tan@gmail.com
+Họ và tên: 
+SĐT:       123
+Địa chỉ:   a
+Email:     a
 Sách đang mượn: 
-ID:    567890
+-   ID: 234
+-   ID: 222
