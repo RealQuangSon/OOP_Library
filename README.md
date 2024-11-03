@@ -1,7 +1,7 @@
 # OOP_Library
 ## Thành viên
 Lê Đăng Tấn - 11236199
-
+Nguyễn Quang Sơn - 11236195
 ## Mô tả
 Đề bài nhóm B là sử dụng các kiến thức lập trình hướng đối tượng để mô phỏng lại hệ thống thư viện với các chức năng cơ bản:
 - Xây dựng các lớp: Sách, Độc giả, Mượn trả.
